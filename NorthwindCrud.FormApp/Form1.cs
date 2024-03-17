@@ -25,4 +25,16 @@ public partial class Form1 : Form
         FrmCategoryCrud frm = new FrmCategoryCrud();
         frm.Show();
     }
+
+    private void btnSupplier_Click(object sender, EventArgs e)
+    {
+        FrmSupplierCrud frm = new FrmSupplierCrud();
+        frm.Show();
+    }
+
+    private void btnCustomer_Click(object sender, EventArgs e)
+    {
+        FrmCustomerCrud frm = new FrmCustomerCrud();
+        frm.Show();
+    }
 }

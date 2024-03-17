@@ -8,6 +8,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using NorthwindCrud.FormApp.Models;
+using NorthwindCrud.FormApp.Services;
 
 namespace NorthwindCrud.FormApp.Forms;
 public partial class FrmCategoryCrud : Form
@@ -17,15 +18,16 @@ public partial class FrmCategoryCrud : Form
         InitializeComponent();
     }
 
+    private CategoryService _categoryService;
     private void FrmCategoryCrud_Load(object sender, EventArgs e)
     {
+        _categoryService = new CategoryService();
         LoadControls();
     }
 
     void LoadControls()
     {
-        NorthwndContext context = new NorthwndContext();
-        dgvCategories.DataSource = context.Categories.ToList();
+        dgvCategories.DataSource = _categoryService.GetAllCategories();
     }
 
     void ClearControls()
@@ -38,13 +40,11 @@ public partial class FrmCategoryCrud : Form
 
     private void btnAdd_Click(object sender, EventArgs e)
     {
-        NorthwndContext context = new NorthwndContext();
-        context.Categories.Add(new()
+        _categoryService.AddCategory(new()
         {
             CategoryName = txtCategoryName.Text,
             Description = txtDescription.Text
         });
-        context.SaveChanges();
         LoadControls();
         ClearControls();
     }
@@ -61,12 +61,13 @@ public partial class FrmCategoryCrud : Form
 
     private void btnUpdate_Click(object sender, EventArgs e)
     {
+        int id = Convert.ToInt32(txtId.Text);
         NorthwndContext context = new NorthwndContext();
-        Category category = context.Categories.FirstOrDefault(c => c.CategoryId == Convert.ToInt32(txtId.Text));
+        Category category = _categoryService.GetCategory(id);
 
         category.CategoryName = txtCategoryName.Text;
         category.Description = txtDescription.Text;
-        context.SaveChanges();
+        _categoryService.UpdateCategory(category);
         LoadControls();
         ClearControls();
     }

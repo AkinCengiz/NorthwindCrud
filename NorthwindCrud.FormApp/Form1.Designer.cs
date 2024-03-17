@@ -71,6 +71,7 @@ partial class Form1
         btnCustomer.TabIndex = 3;
         btnCustomer.Text = "Customer Module";
         btnCustomer.UseVisualStyleBackColor = false;
+        btnCustomer.Click += btnCustomer_Click;
         // 
         // btnSupplier
         // 
@@ -83,6 +84,7 @@ partial class Form1
         btnSupplier.TabIndex = 2;
         btnSupplier.Text = "Supplier Module";
         btnSupplier.UseVisualStyleBackColor = false;
+        btnSupplier.Click += btnSupplier_Click;
         // 
         // Form1
         // 
